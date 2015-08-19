@@ -47,13 +47,6 @@ module JavaServiceCookbook
         notifying_block do
           download_artifact_file
           create_service_directories
-
-          directory [::Dir.basename(new_resource.artifact_path), new_resource.base_path] do
-            recursive true
-            owner new_resource.user
-            group new_resource.group
-            mode '0755'
-          end
         end
         super
       end
