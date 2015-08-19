@@ -17,7 +17,7 @@ module JavaServiceCookbook
       attribute(:artifact_name, kind_of: String, name_attribute: true)
       attribute(:artifact_version, kind_of: String, required: true)
       attribute(:artifact_group, kind_of: String)
-      attribute(:artifact_type, equal_to: %w{jar war}, default: 'jar')
+      attribute(:artifact_type, equal_to: %w(jar war), default: 'jar')
 
       attribute(:base_path, kind_of: String, default: '/srv')
       attribute(:user, kind_of: String)
