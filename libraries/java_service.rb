@@ -14,17 +14,17 @@ module JavaServiceCookbook
       provides(:java_service)
       include PoiseService::ServiceMixin
 
-      property(:artifact_name, kind_of: String, name_attribute: true)
-      property(:artifact_version, kind_of: String, required: true)
-      property(:artifact_group, kind_of: String)
-      property(:artifact_type, equal_to: %w{jar war}, default: 'jar')
+      attribute(:artifact_name, kind_of: String, name_attribute: true)
+      attribute(:artifact_version, kind_of: String, required: true)
+      attribute(:artifact_group, kind_of: String)
+      attribute(:artifact_type, equal_to: %w{jar war}, default: 'jar')
 
-      property(:base_path, kind_of: String, default: '/srv')
-      property(:user, kind_of: String)
-      property(:group, kind_of: String)
+      attribute(:base_path, kind_of: String, default: '/srv')
+      attribute(:user, kind_of: String)
+      attribute(:group, kind_of: String)
 
-      property(:jvm_args, kind_of: Array, default: [])
-      property(:environment, option_collector: true)
+      attribute(:jvm_args, kind_of: Array, default: [])
+      attribute(:environment, option_collector: true)
 
       def artifact_path
         "/usr/local/java/lib/#{artifact_name}-#{artifact_version}.jar"
@@ -52,7 +52,7 @@ module JavaServiceCookbook
       end
 
       def download_artifact_file
-        directory ::Dir.basename(new_resource.artifact_path) do
+        directory ::File.dirname(new_resource.artifact_path) do
           recursive true
           owner new_resource.user
           group new_resource.group
@@ -68,7 +68,7 @@ module JavaServiceCookbook
       end
 
       def create_service_directories
-        base_path = File.join(new_resource.base_path, new_resource.name)
+        base_path = ::File.join(new_resource.base_path, new_resource.name)
         directory [::File.join(base_path, 'conf'),
                    ::File.join(base_path, 'log'),
                    ::File.join(base_path, 'tmp')] do

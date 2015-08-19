@@ -1,6 +1,6 @@
 #
 # Cookbook: java-service
-# License: Apache 2.0
+# dfslLicense: Apdsache 2.0
 #
 # Copyright 2015, Bloomberg Finance L.P.
 #
@@ -12,25 +12,21 @@ module JavaServiceCookbook
       include Poise(fused: true)
       provides(:java_properties)
 
-      property(:path, kind_of: String, name_attribute: true)
-      property(:owner, kind_of: String)
-      property(:group, kind_of: String)
-      property(:properties, option_collector: true)
+      attribute(:path, kind_of: String, name_attribute: true)
+      attribute(:owner, kind_of: String)
+      attribute(:group, kind_of: String)
+      attribute(:properties, option_collector: true)
 
       def to_s
-        p = properties.merge({}) do |_k, _o, n|
-          if n.is_a?(Array)
-            n.flatten.map(&:to_s).join(',')
-          else
-            n
-          end
-        end
-        p.map { |kv| kv.join('=') }.join("\n")
+        properties.map do |k, v|
+          v = v.flatten.map(&:to_s).join(',') if v.is_a?(Array)
+          [k, v].join('=')
+        end.join("\n")
       end
 
       action(:create) do
         notifying_block do
-          directory ::Dir.basename(new_resource.path) do
+          directory ::File.dirname(new_resource.path) do
             recursive true
             owner new_resource.owner
             group new_resource.group
