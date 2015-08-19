@@ -14,24 +14,21 @@ module JavaServiceCookbook
       provides(:java_service)
       include PoiseService::ServiceMixin
 
+      attribute(:command, kind_of: String, default: lazy { default_command })
+      attribute(:group, kind_of: String, default: 'root')
+
       attribute(:artifact_name, kind_of: String, name_attribute: true)
+      attribute(:artifact_path, kind_of: String, default: lazy { '/usr/local/java/lib' })
       attribute(:artifact_version, kind_of: String, required: true)
-      attribute(:artifact_group, kind_of: String)
+      attribute(:artifact_group_id, kind_of: String)
       attribute(:artifact_type, equal_to: %w(jar war), default: 'jar')
 
-      attribute(:base_path, kind_of: String, default: '/srv')
-      attribute(:user, kind_of: String)
-      attribute(:group, kind_of: String)
-
-      attribute(:jvm_args, kind_of: Array, default: [])
-      attribute(:environment, option_collector: true)
-
-      def artifact_path
-        "/usr/local/java/lib/#{artifact_name}-#{artifact_version}.jar"
+      def friendly_path
+        ::File.join(artifact_path, "#{artifact_name}-#{artifact_version}.jar")
       end
 
-      def command
-        "java -jar #{artifact_path} #{jvm_args}".chomp
+      def default_command
+        "/bin/env java -jar #{friendly_path}".chomp
       end
     end
   end
@@ -52,15 +49,9 @@ module JavaServiceCookbook
       end
 
       def download_artifact_file
-        directory ::File.dirname(new_resource.artifact_path) do
-          recursive true
-          owner new_resource.user
-          group new_resource.group
-          mode '0755'
-        end
-
         maven new_resource.artifact_name do
-          group_id new_resource.artifact_group
+          owner new_resource.owner
+          group_id new_resource.artifact_group_id
           version new_resource.artifact_version
           packaging new_resource.artifact_type
           dest new_resource.artifact_path
@@ -68,23 +59,15 @@ module JavaServiceCookbook
       end
 
       def create_service_directories
-        base_path = ::File.join(new_resource.base_path, new_resource.name)
-        directory [::File.join(base_path, 'conf'),
-                   ::File.join(base_path, 'log'),
-                   ::File.join(base_path, 'tmp')] do
+        path = ::File.join(new_resource.directory, new_resource.name)
+        directory [::File.join(path, 'conf'),
+                   ::File.join(path, 'log'),
+                   ::File.join(path, 'tmp')] do
           recursive true
           owner new_resource.user
           group new_resource.group
           mode '0755'
         end
-      end
-
-      def service_options(service)
-        service.command(new_resource.command)
-        service.directory(new_resource.base_path)
-        service.user(new_resource.user)
-        service.environment(new_resource.environment)
-        service.restart_on_update(true)
       end
     end
   end
