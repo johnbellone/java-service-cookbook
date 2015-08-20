@@ -8,6 +8,7 @@ require 'poise_service/service_mixin'
 
 module JavaServiceCookbook
   module Resource
+    # Resource which represents the Java service on an instance.
     # @since 1.0.0
     class JavaService < Chef::Resource
       include Poise
@@ -34,6 +35,7 @@ module JavaServiceCookbook
   end
 
   module Provider
+    # Provider which implements the Java service on instance.
     # @since 1.0.0
     class JavaService < Chef::Provider
       include Poise

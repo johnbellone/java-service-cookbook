@@ -8,6 +8,8 @@ require 'poise'
 
 module JavaServiceCookbook
   module Resource
+    # Resource which manages a Java properties configuration.
+    # @since 1.0.0
     class JavaProperties < Chef::Resource
       include Poise(fused: true)
       provides(:java_properties)
