@@ -3,7 +3,7 @@ require_relative '../../../libraries/java_properties'
 
 describe JavaServiceCookbook::Resource::JavaProperties do
   step_into(:java_properties)
-  context '#action_create' do
+  context 'creates log4j properties' do
     recipe do
       java_properties '/etc/service/log4j.properties' do
         properties do

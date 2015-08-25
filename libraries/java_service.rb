@@ -16,6 +16,7 @@ module JavaServiceCookbook
       include PoiseService::ServiceMixin
 
       attribute(:command, kind_of: String, default: lazy { default_command })
+      attribute(:directory, kind_of: String, default: '/var/run/java')
       attribute(:group, kind_of: String, default: 'root')
 
       attribute(:artifact_name, kind_of: String, name_attribute: true)
@@ -52,7 +53,7 @@ module JavaServiceCookbook
 
       def download_artifact_file
         maven new_resource.artifact_name do
-          owner new_resource.owner
+          owner new_resource.user
           group_id new_resource.artifact_group_id
           version new_resource.artifact_version
           packaging new_resource.artifact_type
