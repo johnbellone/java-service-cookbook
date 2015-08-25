@@ -25,8 +25,12 @@ module JavaServiceCookbook
       attribute(:artifact_group_id, kind_of: String)
       attribute(:artifact_type, equal_to: %w(jar war), default: 'jar')
 
+      def friendly_name
+        [artifact_name, artifact_version].join('-')
+      end
+
       def friendly_path
-        ::File.join(artifact_path, "#{artifact_name}-#{artifact_version}.jar")
+        ::File.join(artifact_path, "#{friendly_name}.jar")
       end
 
       def default_command
@@ -62,7 +66,7 @@ module JavaServiceCookbook
       end
 
       def create_service_directories
-        path = ::File.join(new_resource.directory, new_resource.name)
+        path = ::File.join(new_resource.directory, new_resource.friendly_name)
         directory [::File.join(path, 'conf'),
                    ::File.join(path, 'log'),
                    ::File.join(path, 'tmp')] do
