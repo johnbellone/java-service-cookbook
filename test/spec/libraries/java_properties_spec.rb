@@ -5,7 +5,7 @@ describe JavaServiceCookbook::Resource::JavaProperties do
   step_into(:java_properties)
   context '#action_create' do
     recipe do
-      java_properties '/etc/foo/bar.properties' do
+      java_properties '/etc/service/log4j.properties' do
         properties do
           a 'b'
           c ['d', 2, 'f']
@@ -14,10 +14,11 @@ describe JavaServiceCookbook::Resource::JavaProperties do
       end
     end
 
-    it { expect(subject).to create_directory('/etc/foo') }
-    it do
-      expect(subject).to create_file('/etc/foo/bar.properties')
-      .with(content: "a=b\nc=d,2,f\ng=1")
-    end
+    it { expect(subject).to create_directory('/etc/service') }
+    it { is_expected.to render_file('/etc/service/log4j.properties').with_content(<<-EOH.chomp) }
+a=b
+c=d,2,f
+g=1
+EOH
   end
 end
