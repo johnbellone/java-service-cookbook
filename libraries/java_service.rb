@@ -8,7 +8,7 @@ require 'poise_service/service_mixin'
 
 module JavaServiceCookbook
   module Resource
-    # Resource which represents the Java service on an instance.
+    # A resource which describes a Java service on a node.
     # @since 1.0.0
     class JavaService < Chef::Resource
       include Poise
@@ -34,13 +34,13 @@ module JavaServiceCookbook
       end
 
       def default_command
-        "/bin/env java -jar #{friendly_path}".chomp
+        "/usr/bin/env java -jar #{friendly_path}".chomp
       end
     end
   end
 
   module Provider
-    # Provider which implements the Java service on instance.
+    # A provider which manages a Java service on a node.
     # @since 1.0.0
     class JavaService < Chef::Provider
       include Poise
