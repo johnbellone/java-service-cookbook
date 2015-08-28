@@ -17,6 +17,7 @@ module JavaServiceCookbook
       attribute(:path, kind_of: String, name_attribute: true)
       attribute(:owner, kind_of: String)
       attribute(:group, kind_of: String)
+      attribute(:mode, kind_of: String, default: '0640')
       attribute(:properties, option_collector: true)
 
       def to_s
@@ -39,7 +40,7 @@ module JavaServiceCookbook
             content new_resource.to_s
             owner new_resource.owner
             group new_resource.group
-            mode '0640'
+            mode new_resource.mode
           end
         end
       end
