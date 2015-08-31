@@ -3,7 +3,7 @@ require_relative '../../../libraries/java_service'
 
 describe JavaServiceCookbook::Resource::JavaService do
   step_into(:java_service)
-  context 'enables service' do
+  context 'enables servlet' do
     recipe do
       java_service 'servlet' do
         artifact_version '0.1.0-SNAPSHOT'
@@ -12,7 +12,7 @@ describe JavaServiceCookbook::Resource::JavaService do
     end
 
     %w{log conf tmp}.each do |dirname|
-      it { is_expected.to create_directory("/var/run/java/#{dirname}") }
+      it { is_expected.to create_directory("/srv/servlet/#{dirname}") }
     end
   end
 end
