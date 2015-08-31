@@ -25,7 +25,7 @@ module JavaServiceCookbook
       include PoiseService::ServiceMixin
 
       attribute(:command, kind_of: String, default: lazy { default_command })
-      attribute(:directory, kind_of: String, default: '/var/run/java')
+      attribute(:directory, kind_of: String, default: lazy { default_directory })
       attribute(:group, kind_of: String, default: 'root')
 
       attribute(:artifact_name, kind_of: String, name_attribute: true)
@@ -40,6 +40,10 @@ module JavaServiceCookbook
 
       def friendly_path
         ::File.join(artifact_path, "#{friendly_name}.jar")
+      end
+
+      def default_directory
+        "/srv/#{artifact_name}"
       end
 
       def default_command
