@@ -26,6 +26,7 @@ module JavaServiceCookbook
 
       attribute(:command, kind_of: String, default: lazy { default_command })
       attribute(:directory, kind_of: String, default: lazy { default_directory })
+      attribute(:user, kind_of: String, default: 'root')
       attribute(:group, kind_of: String, default: 'root')
 
       attribute(:artifact_name, kind_of: String, name_attribute: true)
