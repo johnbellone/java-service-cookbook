@@ -11,6 +11,6 @@ supports 'redhat'
 supports 'ubuntu'
 
 depends 'java'
-depends 'maven'
+depends 'maven', '~> 2.0'
 depends 'poise', '~> 2.2'
 depends 'poise-service', '~> 1.0'
