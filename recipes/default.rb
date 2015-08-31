@@ -10,7 +10,7 @@ if platform?('ubuntu')
   apt_repository 'openjdk-r' do
     url 'http://ppa.launchpad.net/openjdk-r/ppa/ubuntu'
     distribution node['lsb']['codename']
-    components %w{main}
+    components ['main']
     keyserver 'keyserver.ubuntu.com'
     key '86F44E2A'
   end
