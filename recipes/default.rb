@@ -8,7 +8,7 @@ if platform?('ubuntu')
   include_recipe 'apt::default'
 
   apt_repository 'openjdk-r' do
-    url 'http://ppa.launchpad.net/openjdk-r/ppa/ubuntu'
+    uri 'http://ppa.launchpad.net/openjdk-r/ppa/ubuntu'
     distribution node['lsb']['codename']
     components ['main']
     keyserver 'keyserver.ubuntu.com'
