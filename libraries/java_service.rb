@@ -71,10 +71,9 @@ module JavaServiceCookbook
             destination new_resource.artifact_path
           end
 
-          path = ::File.join(new_resource.directory, new_resource.friendly_name)
-          directory [::File.join(path, 'conf'),
-                     ::File.join(path, 'log'),
-                     ::File.join(path, 'tmp')] do
+          directory [::File.join(new_resource.directory, 'conf'),
+                     ::File.join(new_resource.directory, 'log'),
+                     ::File.join(new_resource.directory, 'tmp')] do
             recursive true
             owner new_resource.user
             group new_resource.group
