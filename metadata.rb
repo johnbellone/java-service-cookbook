@@ -10,6 +10,7 @@ supports 'centos'
 supports 'redhat'
 supports 'ubuntu'
 
+depends 'apt'
 depends 'java'
 depends 'maven', '~> 2.0'
 depends 'poise', '~> 2.2'
