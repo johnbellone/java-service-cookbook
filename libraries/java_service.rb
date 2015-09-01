@@ -26,6 +26,7 @@ module JavaServiceCookbook
 
       attribute(:command, kind_of: String, default: lazy { default_command })
       attribute(:directory, kind_of: String, default: lazy { default_directory })
+      attribute(:environment, option_collector: true)
       attribute(:user, kind_of: String, default: 'root')
       attribute(:group, kind_of: String, default: 'root')
 
@@ -34,6 +35,7 @@ module JavaServiceCookbook
       attribute(:artifact_version, kind_of: String, required: true)
       attribute(:artifact_group_id, kind_of: String)
       attribute(:artifact_type, equal_to: %w(jar war), default: 'jar')
+      attribute(:artifact_repositories, kind_of: [String, Array])
 
       def friendly_name
         [artifact_name, artifact_version].join('-')
@@ -65,22 +67,33 @@ module JavaServiceCookbook
         notifying_block do
           maven_artifact new_resource.artifact_name do
             owner new_resource.user
-            group_id new_resource.artifact_group_id
+            group new_resource.group
             version new_resource.artifact_version
+            group_id new_resource.artifact_group_id
             packaging new_resource.artifact_type
             destination new_resource.artifact_path
+            repositories new_resource.artifact_repositories
           end
 
-          directory [::File.join(new_resource.directory, 'conf'),
-                     ::File.join(new_resource.directory, 'log'),
-                     ::File.join(new_resource.directory, 'tmp')] do
-            recursive true
-            owner new_resource.user
-            group new_resource.group
-            mode '0755'
+          [::File.join(new_resource.directory, 'conf'),
+           ::File.join(new_resource.directory, 'log'),
+           ::File.join(new_resource.directory, 'tmp')].each do |dirname|
+            directory dirname do
+              recursive true
+              owner new_resource.user
+              group new_resource.group
+              mode '0755'
+            end
           end
         end
         super
+      end
+
+      def service_options(service)
+        service.user(new_resource.user)
+        service.command(new_resource.command)
+        service.directory(new_resource.directory)
+        service.environment(new_resource.environment)
       end
     end
   end
