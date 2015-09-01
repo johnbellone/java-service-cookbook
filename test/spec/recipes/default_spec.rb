@@ -24,12 +24,12 @@ describe 'java-service::default' do
   end
 
   context 'with default attributes on ubuntu 14.04' do
-    cached(:chef_run) { ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '12.04').converge('java-service::default') }
+    cached(:chef_run) { ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '14.04').converge('java-service::default') }
     it { expect(chef_run).to include_recipe('apt::default') }
     it do
       expect(chef_run).to add_apt_repository('openjdk-r')
-      .with(url: 'http://ppa.launchpad.net/openjdk-r/ppa/ubuntu')
-      .with(distribution: 'precise')
+      .with(uri: 'http://ppa.launchpad.net/openjdk-r/ppa/ubuntu')
+      .with(distribution: 'trusty')
       .with(components: ['main'])
       .with(keyserver: 'keyserver.ubuntu.com')
       .with(key: '86F44E2A')
@@ -46,8 +46,8 @@ describe 'java-service::default' do
     it { expect(chef_run).to include_recipe('apt::default') }
     it do
       expect(chef_run).to add_apt_repository('openjdk-r')
-      .with(url: 'http://ppa.launchpad.net/openjdk-r/ppa/ubuntu')
-      .with(distribution: 'trusty')
+      .with(uri: 'http://ppa.launchpad.net/openjdk-r/ppa/ubuntu')
+      .with(distribution: 'precise')
       .with(components: ['main'])
       .with(keyserver: 'keyserver.ubuntu.com')
       .with(key: '86F44E2A')

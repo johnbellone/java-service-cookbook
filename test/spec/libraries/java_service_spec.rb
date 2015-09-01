@@ -13,8 +13,10 @@ describe JavaServiceCookbook::Resource::JavaService do
       end
     end
 
-    %w{log conf tmp}.each do |dirname|
-      it { is_expected.to create_directory("/srv/servlet/#{dirname}") }
+    it do
+      is_expected.to install_maven_artifact('servlet')
+      .with(version: '0.1.0-SNAPSHOT')
+      .with(group_id: 'com.bloomberg.inf')
     end
   end
 end
