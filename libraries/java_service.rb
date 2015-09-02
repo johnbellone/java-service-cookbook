@@ -94,6 +94,7 @@ module JavaServiceCookbook
         service.command(new_resource.command)
         service.directory(new_resource.directory)
         service.environment(new_resource.environment)
+        service.restart_on_update(true)
       end
     end
   end
