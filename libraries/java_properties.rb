@@ -20,6 +20,9 @@ module JavaServiceCookbook
       attribute(:mode, kind_of: String, default: '0640')
       attribute(:properties, option_collector: true)
 
+      # TODO: (jbellone) We should re-use some kind of standard Ruby
+      # library here which properly writes out Java properties. But I
+      # wasn't able to find anything that seemed to fit the bill.
       def to_s
         properties.map do |k, v|
           v = v.flatten.map(&:to_s).join(',') if v.is_a?(Array)
