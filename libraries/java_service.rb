@@ -2,14 +2,15 @@
 # Cookbook: java-service
 # License: Apache 2.0
 #
-# Copyright 2015, Bloomberg Finance L.P.
+# Copyright 2010-2013, Chef Software, Inc.
+# Copyright 2015-2016, Bloomberg Finance L.P.
 #
 require 'poise_service/service_mixin'
 
 module JavaServiceCookbook
   module Resource
     # A resource for managing Java services on a node.
-    # @since 1.0.0
+    # @since 1.0
     # @example
     # java_service 'metadata-service' do
     #   directory '/srv/metadata-service'
@@ -57,7 +58,7 @@ module JavaServiceCookbook
 
   module Provider
     # A provider which manages a Java service on a node.
-    # @since 1.0.0
+    # @since 1.0
     class JavaService < Chef::Provider
       include Poise
       provides(:java_service)
