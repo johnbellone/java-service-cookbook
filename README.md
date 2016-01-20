@@ -1,4 +1,9 @@
-# java-service-cookbook
+# java-service cookbook
+[![Build Status](https://img.shields.io/travis/johnbellone/java-service-cookbook.svg)](https://travis-ci.org/johnbellone/java-service-cookbook)
+[![Code Quality](https://img.shields.io/codeclimate/github/johnbellone/java-service-cookbook.svg)](https://codeclimate.com/github/johnbellone/java-service-cookbook)
+[![Cookbook Version](https://img.shields.io/cookbook/v/java-service.svg)](https://supermarket.chef.io/cookbooks/java-service)
+[![License](https://img.shields.io/badge/license-Apache_2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+
 [Library cookbook][0] which provides resources for configuring a Java
 service.
 
