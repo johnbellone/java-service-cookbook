@@ -1,0 +1,6 @@
+require 'poise_boiler/spec_helper'
+require 'chefspec/berkshelf'
+require 'chefspec/cacher'
+require_relative '../../libraries/java_service'
+require_relative '../../libraries/maven_artifact'
+require_relative '../../libraries/maven_execute'

@@ -7,20 +7,18 @@ describe 'java-service::default' do
     cached(:chef_run) { ChefSpec::SoloRunner.new(platform: 'redhat', version: '6.6').converge('java-service::default') }
     it { expect(chef_run).to_not include_recipe('apt::default') }
     it { expect(chef_run).to include_recipe('java::default') }
-    it { expect(chef_run).to include_recipe('maven::default') }
-    it 'converges successfully' do
-      chef_run
-    end
+    it { expect(chef_run).to include_recipe('yum-epel::default') }
+    it { expect(chef_run).not_to include_recipe('yum-centos::default') }
+    it { expect(chef_run).to include_recipe('libarchive::default') }
   end
 
   context 'with default attributes on redhat 7.1' do
-    cached(:chef_run) { ChefSpec::SoloRunner.new(platform: 'redhat', version: '7.1').converge('java-service::default') }
+    cached(:chef_run) { ChefSpec::SoloRunner.new(platform: 'centos', version: '6.6').converge('java-service::default') }
     it { expect(chef_run).to_not include_recipe('apt::default') }
     it { expect(chef_run).to include_recipe('java::default') }
-    it { expect(chef_run).to include_recipe('maven::default') }
-    it 'converges successfully' do
-      chef_run
-    end
+    it { expect(chef_run).to include_recipe('yum-epel::default') }
+    it { expect(chef_run).to include_recipe('yum-centos::default') }
+    it { expect(chef_run).to include_recipe('libarchive::default') }
   end
 
   context 'with default attributes on ubuntu 14.04' do
@@ -35,10 +33,7 @@ describe 'java-service::default' do
       .with(key: '86F44E2A')
     end
     it { expect(chef_run).to include_recipe('java::default') }
-    it { expect(chef_run).to include_recipe('maven::default') }
-    it 'converges successfully' do
-      chef_run
-    end
+    it { expect(chef_run).to include_recipe('libarchive::default') }
   end
 
   context 'with default attributes on ubuntu 12.04' do
@@ -53,9 +48,6 @@ describe 'java-service::default' do
       .with(key: '86F44E2A')
     end
     it { expect(chef_run).to include_recipe('java::default') }
-    it { expect(chef_run).to include_recipe('maven::default') }
-    it 'converges successfully' do
-      chef_run
-    end
+    it { expect(chef_run).to include_recipe('libarchive::default') }
   end
 end

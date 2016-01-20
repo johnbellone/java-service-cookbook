@@ -39,7 +39,6 @@ module JavaServiceCookbook
             group new_resource.group
             cwd new_resource.directory
             environment new_resource.environment
-            #sensitive true
           end
         end
       end
