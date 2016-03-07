@@ -26,6 +26,7 @@ end
 
 node.default['java']['jdk_version'] = '8'
 node.default['java']['accept_license_agreement'] = true
+node.default['java']['oracle']['accept_oracle_download_terms'] = true
 node.default['java']['set_etc_environment'] = true
 include_recipe 'java::default'
 
