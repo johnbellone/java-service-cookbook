@@ -34,7 +34,7 @@ module JavaServiceCookbook
           end
 
           bash "mvn #{new_resource.command}" do # ~FC009
-            code ['mvn', new_resource.command, options].flatten.map(&:strip).join(' ')
+            code ['/usr/bin/env mvn', new_resource.command, options].flatten.map(&:strip).join(' ')
             user new_resource.user
             group new_resource.group
             cwd new_resource.directory

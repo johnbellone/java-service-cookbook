@@ -13,33 +13,11 @@ fast and simple; the best part is that it works with the native
 service management of the operating system!
 
 ## Basic Usage
-THe whole point of this cookbook is to provide a dead simple way to
+The whole point of this cookbook is to provide a dead simple way to
 deploy Java services to an instance. The first resource installs and
 configures a Java service as a system service. This has an advantage
-of being portable based on the operating systme. The second resource
-allows for easy management of the
-[Java properties configuration format][1].
-### Enabling and Starting a Java Service
-```ruby
-java_service 'host-info' do
-  artifact_version '0.2.0-SNAPSHOT'
-  artifact_group_id 'com.bloomberg.inf'
-end
-```
-### Downloading Maven Artifacts
-If you're looking to download artifacts from a Maven repository there
-is the **maven_artifact** resource which makes it easy to do so. This
-resource shells out to the **maven_execute** resource and utilizies
-the [maven dependency plugin][2] to recursively resolve all
-dependencies of the specified artifact.
-```ruby
-maven_artifact 'spoon' do
-  version '0.2.0-SNAPSHOT'
-  group_id 'com.bloomberg.inf'
-  repositories 'http://clojars.org/repo'
-  destination '/usr/local/share/java'
-end
-```
+of being portable based on the operating system.
+
 [0]: http://blog.vialstudios.com/the-environment-cookbook-pattern
 [1]: https://en.wikipedia.org/wiki/.properties
 [2]: https://maven.apache.org/plugins/maven-dependency-plugin/
