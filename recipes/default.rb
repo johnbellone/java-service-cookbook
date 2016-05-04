@@ -5,17 +5,7 @@
 # Copyright 2010-2013, Chef Software, Inc.
 # Copyright 2015-2016, Bloomberg Finance L.P.
 #
-if platform?('ubuntu')
-  include_recipe 'apt::default'
-
-  apt_repository 'openjdk-r' do
-    uri 'http://ppa.launchpad.net/openjdk-r/ppa/ubuntu'
-    distribution node['lsb']['codename']
-    components ['main']
-    keyserver 'keyserver.ubuntu.com'
-    key '86F44E2A'
-  end
-end
+include_recipe 'apt::default' if platform?('ubuntu')
 
 if platform_family?('rhel')
   include_recipe 'yum-centos::default' if platform?('centos')
