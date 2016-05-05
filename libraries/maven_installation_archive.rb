@@ -81,7 +81,7 @@ module JavaServiceCookbook
       # @return [String]
       # @api private
       def maven_program
-        options.fetch(:maven_program, ::File.join(maven_home, new_resource.version, 'bin', 'mvn'))
+        options.fetch(:maven_program, ::File.join(maven_home, 'bin', 'mvn'))
       end
 
       # @return [String]
