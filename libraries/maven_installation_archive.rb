@@ -29,7 +29,8 @@ module JavaServiceCookbook
       def self.default_inversion_options(_node, resource)
         super.merge(extract_to: '/opt/maven',
           symlink_target: '/usr/local/bin/mvn',
-          artifact_url: "http://apache.mirrors.tds.net/maven/maven-%{major_version}/%{version}/binaries/apache-maven-%{version}-bin.tar.gz",
+          mirror: 'apache.mirrors.tds.net',
+          artifact_url: "http://%{mirror}/maven/maven-%{major_version}/%{version}/binaries/apache-maven-%{version}-bin.tar.gz",
           artifact_checksum: archive_checksum(resource)
         )
       end
@@ -40,7 +41,7 @@ module JavaServiceCookbook
             recursive true
           end
 
-          url = options[:artifact_url] % {major_version: new_resource.version.to_i, version: new_resource.version}
+          url = options[:artifact_url] % {mirror: options[:mirror], major_version: new_resource.version.to_i, version: new_resource.version}
           poise_archive ::File.join(Chef::Config[:file_cache_path], ::File.basename(url)) do
             action :nothing
             destination maven_home
