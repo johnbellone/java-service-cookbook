@@ -21,7 +21,7 @@ module JavaServiceCookbook
 
       attribute(:command, kind_of: String, name_attribute: true)
       attribute(:environment, kind_of: Hash, default: { 'PATH' => '/usr/local/bin:/usr/bin:/bin' })
-      attribute(:options, option_collector: true)
+      attribute(:options, option_collector: true, forced_keys: [:version])
 
       action(:run) do
         options = new_resource.options.delete_if { |_, v| v.nil? }.map { |kv| '-D' + kv.join('=') }
