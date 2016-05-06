@@ -24,14 +24,14 @@ end
 
 node.default['java-service']['mavenrc']['M2_HOME'] = install.maven_home
 
-rc_file File.join(Dir.home, 'mavenrc_pre.bat') do
-  type 'bat'
-  options node['java-service']['mavenrc']
-  only_if { platform?('windows') }
-end
-
-rc_file '/etc/mavenrc' do
-  mode '0644'
-  options node['java-service']['mavenrc']
-  not_if { platform?('windows') }
+if platform?('windows')
+  rc_file File.join(Dir.home, 'mavenrc_pre.bat') do
+    type 'bat'
+    options node['java-service']['mavenrc']
+  end
+else
+  rc_file '/etc/mavenrc' do
+    mode '0644'
+    options node['java-service']['mavenrc']
+  end
 end
